@@ -41,6 +41,33 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'users', 'namespace' =
   Route::post('{user}/avatar', 'UserController@avatar');
 });
 
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'words', 'namespace' => 'Words'], function () {
+  Route::get('autocomplete', 'AutocompleteWordController');
+
+  Route::post('', 'WordController@store');
+  Route::get('', 'WordController@index');
+  Route::get('{word}', 'WordController@show');
+  Route::patch('{word}', 'WordController@update');
+  Route::delete('{word}', 'WordController@destroy');
+
+  Route::post('{word}/translations/{translation}', 'LinkTranslationController@link');
+  Route::delete('{word}/translations/{translation}', 'LinkTranslationController@unlink');
+
+  Route::post('{word}/categories/{category}', 'LinkCategoryController@link');
+  Route::delete('{word}/categories/{category}', 'LinkCategoryController@unlink');
+});
+
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'categories', 'namespace' => 'Categories'], function () {
+  Route::get('autocomplete', 'AutocompleteCategoryController');
+
+  Route::get('tree', 'CategoryController@tree');
+  Route::get('', 'CategoryController@index');
+  Route::post('', 'CategoryController@store');
+  Route::get('{category}', 'CategoryController@show');
+  Route::patch('{category}', 'CategoryController@update');
+  Route::delete('{category}', 'CategoryController@destroy');
+});
+
 Route::group(['prefix' => 'media', 'namespace' => 'Media'], function () {
   Route::get('config', 'MediaConfigController@index');
 });

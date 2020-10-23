@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Word;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Facades\Hash;
@@ -69,16 +70,6 @@ class User extends Authenticatable implements HasMedia
     return 'uuid';
   }
 
-  public function sendPasswordResetNotification($token)
-  {
-    $this->notify(new ApiResetPasswordNotification($token));
-  }
-
-  // public function sendEmailVerificationNotification()
-  // {
-  //   $this->notify(new VerifyEmail());
-  // }
-
   //Password Attribute
   public function setPasswordAttribute($password)
   {
@@ -111,5 +102,18 @@ class User extends Authenticatable implements HasMedia
   public function hasSocialLinked($service)
   {
     return (bool) $this->social->where('service', $service)->count();
+  }
+
+  public function words()
+  {
+    return $this->hasMany(
+      Word::class,
+      'user_id'
+    );
+  }
+
+  public function categories()
+  {
+    return $this->hasMany(Category::class);
   }
 }

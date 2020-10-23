@@ -30,7 +30,8 @@ class UserResource extends JsonResource
           'firstname' => $this->infos->firstname,
           'lastname' => $this->infos->lastname,
           'description' => $this->infos->description,
-          'locale' => $this->infos->locale
+          'locale' => $this->infos->locale,
+          'native' => $this->infos->native,
         ]
       )
     ];
