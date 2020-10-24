@@ -47,7 +47,8 @@ class Word extends Model
     );
   }
 }
-  //Words INSERT INTO words(user_id,id,old_id,langue,forme,pre,cross_dico,lang,suf,genre,nbr,fra,pronon,def,def_json,ex_json,web_def,conj,dep,gram,level,date,modif,note,imp,mode,temps,freq)
+  //Words
+  //INSERT INTO words(user_id,id,old_id,langue,forme,pre,cross_dico,lang,suf,genre,nbr,fra,pronon,def,def_json,ex_json,web_def,conj,dep,gram,level,date,modif,note,imp,mode,temps,freq)
   // SELECT 8,id,old_id,langue,forme,pre,cross_dico,lang,suf,genre,nbr,fra,pronon,def,def_json,ex_json,web_def,conj,dep,gram,level,date,modif,note,imp,mode,temps,freq from lang
 
   //Translations : INSERT INTO translations(langue, type, native_id, translation_id, position_native, position, translation) SELECT langue,type,id_fra,id_lang,pos_fra,pos_lang from lang_link
