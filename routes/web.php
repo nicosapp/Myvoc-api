@@ -39,3 +39,9 @@ Route::get('email', function () {
   $user = User::where('id', 8)->first();
   return new SocialAccountLinked($user,  $user->social()->first());
 });
+
+
+Route::get('test', function (Request $request) {
+  $test = !!$request->user()->infos()->exists();
+  return response()->json(["message" => $request->user()->infos()->exists()]);
+});
