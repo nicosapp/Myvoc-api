@@ -25,14 +25,16 @@ class UserResource extends JsonResource
       'avatar' => $this->when($this->avatar(), new MediaResource($this->avatar())),
 
       $this->mergeWhen(
-        $this->infos()->count() > 0,
-        [
-          'firstname' => $this->infos->firstname,
-          'lastname' => $this->infos->lastname,
-          'description' => $this->infos->description,
-          'locale' => $this->infos->locale,
-          'native' => $this->infos->native,
-        ]
+        $this->infos()->exists(),
+        function () {
+          [
+            'firstname' => $this->infos->firstname,
+            'lastname' => $this->infos->lastname,
+            'description' => $this->infos->description,
+            'locale' => $this->infos->locale,
+            'native' => $this->infos->native,
+          ];
+        }
       )
     ];
   }
