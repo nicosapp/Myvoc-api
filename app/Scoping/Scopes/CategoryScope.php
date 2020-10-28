@@ -18,7 +18,7 @@ class CategoryScope
     }
     return $builder;
     // return $builder->whereHas('categories', function($builder) use ($value){
-    //     
+    //
     // });
   }
 }

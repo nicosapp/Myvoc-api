@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'users', 'namespace' =
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'words', 'namespace' => 'Words'], function () {
   Route::get('autocomplete', 'AutocompleteWordController');
+  Route::get('filter', 'FilterController');
 
   Route::post('', 'WordController@store');
   Route::get('', 'WordController@index');
@@ -60,7 +61,6 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'words', 'namespace' =
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'categories', 'namespace' => 'Categories'], function () {
   Route::get('autocomplete', 'AutocompleteCategoryController');
 
-  Route::get('tree', 'CategoryController@tree');
   Route::get('', 'CategoryController@index');
   Route::post('', 'CategoryController@store');
   Route::get('{category}', 'CategoryController@show');

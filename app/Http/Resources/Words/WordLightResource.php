@@ -24,7 +24,9 @@ class WordLightResource extends JsonResource
       'gram' => $this->gram,
       'note' => $this->note,
       'imp' => $this->imp,
-      'level' => $this->level
+      'level' => $this->level,
+      'created_at' => $this->created_at,
+      'udpated_at' => $this->updated_at
     ];
   }
 }

@@ -3,14 +3,17 @@
 namespace App\Models;
 
 use App\Models\Category;
+use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Word extends Model
 {
-  use HasFactory;
+  use HasFactory, CanBeScoped;
 
   protected $guarded = [];
+
+  public static $pagination = 100;
 
   public function user()
   {

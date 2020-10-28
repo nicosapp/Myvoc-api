@@ -9,15 +9,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-  public function tree(Request $request)
-  {
-    return CategoryResource::collection(
-      $request->user()->categories()->parents()->ordered()->get()
-    );
-  }
-
   public function index(Request $request)
   {
+    if ($request->get('nested', null)) {
+      return CategoryResource::collection(
+        $request->user()->categories()->parents()->ordered()->get()
+      );
+    }
     return CategoryLightResource::collection(
       $request->user()->categories()->get()
     );

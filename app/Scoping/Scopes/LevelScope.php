@@ -4,10 +4,13 @@ namespace App\Scoping\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class SearchTextScope
+class LevelScope
 {
   public function apply(Builder $builder, $value)
   {
-    return $builder->where("title", "LIKE", "%{$value}%");
+    if (is_array($values = explode(',', $value)))
+      $builder->whereIn('words.level', $values);
+
+    return $builder;
   }
 }
