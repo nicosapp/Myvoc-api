@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
 use App\Models\Word;
+use App\Models\Grammar;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Facades\Hash;
@@ -115,5 +117,15 @@ class User extends Authenticatable implements HasMedia
   public function categories()
   {
     return $this->hasMany(Category::class);
+  }
+
+  public function grammars()
+  {
+    return $this->hasMany(Grammar::class);
+  }
+
+  public function tags()
+  {
+    return $this->hasMany(Tag::class);
   }
 }

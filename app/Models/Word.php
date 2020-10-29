@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
+use App\Models\Grammar;
 use App\Models\Category;
 use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +29,26 @@ class Word extends Model
       'category_word',
       'word_id',
       'category_id'
+    );
+  }
+
+  public function grammars()
+  {
+    return $this->belongsToMany(
+      Grammar::class,
+      'grammar_word',
+      'word_id',
+      'grammar_id'
+    );
+  }
+
+  public function tags()
+  {
+    return $this->belongsToMany(
+      Tag::class,
+      'tag_word',
+      'word_id',
+      'tag_id'
     );
   }
 
@@ -65,3 +87,7 @@ class Word extends Model
 
 //Categories
 //INSERT INTO category_word(word_id, category_id) SELECT b.id as word_id, a.id as category_id FROM words b, categories a where FIND_IN_SET(a.id, b.dep)>0
+
+//grammars
+// Entrer manuellement toutes les grammaire puis
+// INSERT into grammar_word(word_id, grammar_id) SELECT b.id as word_id, a.id as grammar_id FROM words b, grammars a where FIND_IN_SET(a.name, b.gram)>0

@@ -5,6 +5,8 @@ namespace App\Http\Resources\Words;
 use App\Http\Resources\Words\WordLightResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Categories\CategoryLightResource;
+use App\Http\Resources\Grammars\GrammarResource;
+use App\Http\Resources\Tags\TagResource;
 
 class WordResource extends JsonResource
 {
@@ -34,6 +36,8 @@ class WordResource extends JsonResource
       'ex_json' => $this->ex_json ? json_decode($this->ex_json, true) : null,
 
       'categories' => CategoryLightResource::collection($this->categories),
+      'grammars' => GrammarResource::collection($this->grammars),
+      'tags' => TagResource::collection($this->tags),
       'translations' => WordLightResource::collection($this->translations),
       'natives' => WordLightResource::collection($this->natives)
     ];

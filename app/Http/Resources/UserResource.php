@@ -26,15 +26,13 @@ class UserResource extends JsonResource
 
       $this->mergeWhen(
         $this->infos()->exists(),
-        function () {
-          [
-            'firstname' => $this->infos->firstname,
-            'lastname' => $this->infos->lastname,
-            'description' => $this->infos->description,
-            'locale' => $this->infos->locale,
-            'native' => $this->infos->native,
-          ];
-        }
+        [
+          'firstname' => $this->infos->firstname,
+          'lastname' => $this->infos->lastname,
+          'description' => $this->infos->description,
+          'locale' => $this->infos->locale,
+          'native' => $this->infos->native,
+        ]
       )
     ];
   }

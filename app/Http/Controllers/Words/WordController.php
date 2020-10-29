@@ -52,7 +52,7 @@ class WordController extends Controller
       'conj' => 'string|nullable',
     ]);
 
-    $word->update($request->only('lang', 'pre', 'suf', 'fra', 'pronon', 'note', 'imp', 'ex_json', 'def_json'));
+    $word->update($request->only('lang', 'pre', 'suf', 'fra', 'pronon', 'note', 'imp', 'ex_json', 'def_json', 'conj'));
   }
 
   public function destroy(Request $request, Word $word)
