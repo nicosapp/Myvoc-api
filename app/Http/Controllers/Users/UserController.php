@@ -26,7 +26,7 @@ class UserController extends Controller
     return new UserResource($user);
   }
 
-  public function update(User $user, Request $request)
+  public function email(User $user, Request $request)
   {
     // authorize
     $this->authorize('update', $user);
@@ -45,23 +45,37 @@ class UserController extends Controller
       $user->infos()->update($request->only('firstname', 'lastname', 'phone_number'));
     }
   }
-  public function updateProfile(User $user, Request $request)
+  public function profile(User $user, Request $request)
   {
     // authorize
     $this->authorize('update', $user);
 
     $this->validate($request, [
       'name' => 'required|min:6',
-      'description' => 'nullable'
+      'description' => 'nullable',
+      'dictionnaries' => 'string|nullable'
     ]);
 
     $user->update($request->only('name'));
     if ($user->infos()->exists()) {
-      $user->infos()->update($request->only('description'));
+      $user->infos()->update($request->only('description', 'dictionnaries'));
     }
   }
 
-  public function updatePassword(User $user, Request $request)
+  public function infos(User $user, Request $request)
+  {
+    // authorize
+    $this->authorize('update', $user);
+
+    // $this->validate($request, [
+    //   'dictionnaries' => 'string|nullable'
+    // ]);
+    if ($user->infos()->exists()) {
+      $user->infos()->update($request->only('dictionnaries'));
+    }
+  }
+
+  public function password(User $user, Request $request)
   {
     // authorize
     $this->authorize('update', $user);

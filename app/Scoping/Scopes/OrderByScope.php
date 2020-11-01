@@ -14,25 +14,25 @@ class OrderByScope
 
     switch ($orderby) {
       case 'alphabetical':
-        $builder->orderby('words.lang', 'asc');
+        $builder->orderby('terms.lang', 'asc');
         break;
       case 'date':
-        $builder->latest('words.updated_at');;
+        $builder->latest('terms.updated_at');;
         break;
       case 'random':
         $builder->inRandomOrder($seed);
         break;
       case 'grammar':
-        $builder->orderby('words.gram', 'asc');
+        $builder->orderby('terms.gram', 'asc');
         break;
       case 'level':
-        $builder->orderby('words.level', 'asc');
+        $builder->orderby('terms.level', 'asc');
         break;
       case 'rating':
-        $builder->orderby('words.rating', 'asc');
+        $builder->orderby('terms.rating', 'asc');
         break;
       case 'highlight':
-        $builder->orderby('words.highlight', 'asc');
+        $builder->orderby('terms.highlight', 'asc');
         break;
     }
 

@@ -9,7 +9,7 @@ class RatingScope
   public function apply(Builder $builder, $value)
   {
     if (is_array($values = explode(',', $value)))
-      $builder->whereIn('words.note', $values);
+      $builder->whereIn('terms.note', $values);
 
     return $builder;
   }

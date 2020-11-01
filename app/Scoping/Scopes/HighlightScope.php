@@ -9,7 +9,7 @@ class HighlightScope
   public function apply(Builder $builder, $value)
   {
     if (is_array($values = explode(',', $value)))
-      $builder->whereIn('words.imp', $values);
+      $builder->whereIn('terms.imp', $values);
 
     return $builder;
   }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagTermTable extends Migration
+class CreateTaxonomyTermTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,13 +13,13 @@ class CreateTagTermTable extends Migration
    */
   public function up()
   {
-    Schema::create('tag_term', function (Blueprint $table) {
+    Schema::create('taxonomy_term', function (Blueprint $table) {
       $table->id();
-      $table->bigInteger('tag_id')->unsigned()->index();
+      $table->bigInteger('taxonomy_id')->unsigned()->index();
       $table->bigInteger('term_id')->unsigned()->index();
       $table->timestamps();
 
-      $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+      $table->foreign('taxonomy_id')->references('id')->on('taxonomies')->onDelete('cascade');
       $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
     });
   }
@@ -31,6 +31,6 @@ class CreateTagTermTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('tag_term');
+    Schema::dropIfExists('taxonomy_term');
   }
 }

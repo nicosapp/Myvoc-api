@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Models\Tag;
-use App\Models\Word;
+use App\Models\Term;
 use App\Models\Grammar;
+use App\Models\Dictionnary;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Facades\Hash;
@@ -106,10 +107,15 @@ class User extends Authenticatable implements HasMedia
     return (bool) $this->social->where('service', $service)->count();
   }
 
-  public function words()
+  public function dictionnaries()
+  {
+    return $this->hasMany(Dictionnary::class);
+  }
+
+  public function terms()
   {
     return $this->hasMany(
-      Word::class,
+      Term::class,
       'user_id'
     );
   }
@@ -122,6 +128,11 @@ class User extends Authenticatable implements HasMedia
   public function grammars()
   {
     return $this->hasMany(Grammar::class);
+  }
+
+  public function taxonomies()
+  {
+    return $this->hasMany(Taxonomy::class);
   }
 
   public function tags()

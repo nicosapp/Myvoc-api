@@ -9,7 +9,7 @@ class TypeScope
   public function apply(Builder $builder, $value)
   {
     if (is_array($values = explode(',', $value)))
-      $builder->whereIn('words.forme', $values);
+      $builder->whereIn('terms.forme', $values);
 
     return $builder;
   }

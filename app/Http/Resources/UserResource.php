@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Dictionnaries\DictionnaryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -23,6 +24,7 @@ class UserResource extends JsonResource
       'is_verified' => $this->hasVerifiedEmail(),
       'created_at' => $this->created_at,
       'avatar' => $this->when($this->avatar(), new MediaResource($this->avatar())),
+      // 'dictionnaries' => DictionnaryResource::collection($this->dictionnaries),
 
       $this->mergeWhen(
         $this->infos()->exists(),
@@ -32,6 +34,7 @@ class UserResource extends JsonResource
           'description' => $this->infos->description,
           'locale' => $this->infos->locale,
           'native' => $this->infos->native,
+
         ]
       )
     ];

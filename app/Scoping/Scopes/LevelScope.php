@@ -9,7 +9,7 @@ class LevelScope
   public function apply(Builder $builder, $value)
   {
     if (is_array($values = explode(',', $value)))
-      $builder->whereIn('words.level', $values);
+      $builder->whereIn('terms.level', $values);
 
     return $builder;
   }

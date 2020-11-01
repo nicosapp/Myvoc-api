@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,18 +11,20 @@ class Tag extends Model
 {
   use HasFactory;
 
+  protected $fillable = ['name'];
+
   public function user()
   {
     return $this->belongsTo(User::class);
   }
 
-  public function words()
+  public function terms()
   {
     return $this->belongsToMany(
-      Word::class,
-      'tag_word',
+      Term::class,
+      'tag_term',
       'tag_id',
-      'word_id',
+      'term_id',
     );
   }
 }

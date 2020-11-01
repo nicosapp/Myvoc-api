@@ -35,27 +35,49 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'users', 'namespace' => 'Users'], function () {
   Route::get('{user}', 'UserController@show');
-  Route::patch('{user}', 'UserController@update');
-  Route::patch('{user}/profile', 'UserController@updateProfile');
-  Route::patch('{user}/password', 'UserController@updatePassword');
+
+  Route::patch('{user}/infos', 'UserController@infos');
+  Route::patch('{user}/email', 'UserController@email');
+  Route::patch('{user}/profile', 'UserController@profile');
+  Route::patch('{user}/password', 'UserController@password');
   Route::post('{user}/avatar', 'UserController@avatar');
 });
 
-Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'words', 'namespace' => 'Words'], function () {
-  Route::get('autocomplete', 'AutocompleteWordController');
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'terms', 'namespace' => 'Terms'], function () {
+  Route::get('autocomplete', 'AutocompleteTermController');
   Route::get('filter', 'FilterController');
 
-  Route::post('', 'WordController@store');
-  Route::get('', 'WordController@index');
-  Route::get('{word}', 'WordController@show');
-  Route::patch('{word}', 'WordController@update');
-  Route::delete('{word}', 'WordController@destroy');
+  Route::post('', 'TermController@store');
+  Route::get('', 'TermController@index');
+  Route::get('{term}', 'TermController@show');
+  Route::patch('{term}', 'TermController@update');
+  Route::delete('{term}', 'TermController@destroy');
 
-  Route::post('{word}/translations/{translation}', 'LinkTranslationController@link');
-  Route::delete('{word}/translations/{translation}', 'LinkTranslationController@unlink');
+  Route::post('{term}/translations/{translation}', 'LinkTranslationController@link');
+  Route::delete('{term}/translations/{translation}', 'LinkTranslationController@unlink');
 
-  Route::post('{word}/categories/{category}', 'LinkCategoryController@link');
-  Route::delete('{word}/categories/{category}', 'LinkCategoryController@unlink');
+  Route::post('{term}/categories/{category}', 'LinkCategoryController@link');
+  Route::delete('{term}/categories/{category}', 'LinkCategoryController@unlink');
+
+  Route::post('{term}/grammars/{grammar}', 'LinkGrammarController@link');
+  Route::delete('{term}/grammars/{grammar}', 'LinkGrammarController@unlink');
+
+  Route::post('{term}/examples/{example}', 'LinkExampleController@link');
+  Route::delete('{term}/examples/{example}', 'LinkExampleController@unlink');
+
+  Route::post('{term}/synonyms/{synonym}', 'LinkSynonymController@link');
+  Route::delete('{term}/synonyms/{synonym}', 'LinkSynonymController@unlink');
+
+  Route::post('{term}/tags/{tag}', 'LinkTagController@link');
+  Route::delete('{term}/tags/{tag}', 'LinkTagController@unlink');
+});
+
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'dictionnaries', 'namespace' => 'Dictionnaries'], function () {
+  Route::get('', 'DictionnaryController@index');
+  Route::post('', 'DictionnaryController@store');
+  Route::get('{dictionnary}', 'DictionnaryController@show');
+  Route::patch('{dictionnary}', 'DictionnaryController@update');
+  Route::delete('{dictionnary}', 'DictionnaryController@destroy');
 });
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'categories', 'namespace' => 'Categories'], function () {
@@ -64,8 +86,35 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'categories', 'namespa
   Route::get('', 'CategoryController@index');
   Route::post('', 'CategoryController@store');
   Route::get('{category}', 'CategoryController@show');
+  Route::patch('bulk', 'CategoryController@bulkUpdate');
   Route::patch('{category}', 'CategoryController@update');
   Route::delete('{category}', 'CategoryController@destroy');
+});
+
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'taxonomies', 'namespace' => 'Taxonomies'], function () {
+  Route::get('autocomplete', 'AutocompleteTaxonomyController');
+
+  Route::get('', 'TaxonomyController@index');
+  Route::post('', 'TaxonomyController@store');
+  Route::get('{taxonomy}', 'TaxonomyController@show');
+  Route::patch('{taxonomy}', 'TaxonomyController@update');
+  Route::delete('{taxonomy}', 'TaxonomyController@destroy');
+});
+
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'grammars', 'namespace' => 'Grammars'], function () {
+  Route::get('', 'GrammarController@index');
+  Route::post('', 'GrammarController@store');
+  Route::get('{grammar}', 'GrammarController@show');
+  Route::patch('{grammar}', 'GrammarController@update');
+  Route::delete('{grammar}', 'GrammarController@destroy');
+});
+
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'tags', 'namespace' => 'Tags'], function () {
+  Route::get('', 'TagController@index');
+  Route::post('', 'TagController@store');
+  Route::get('{tag}', 'TagController@show');
+  Route::patch('{tag}', 'TagController@update');
+  Route::delete('{tag}', 'TagController@destroy');
 });
 
 Route::group(['prefix' => 'media', 'namespace' => 'Media'], function () {

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
   use HasFactory;
+
+  protected $fillable = ['name', 'order', 'parent_id', 'user_id'];
 
   public function user()
   {
@@ -22,13 +24,13 @@ class Category extends Model
     return $this->hasMany(Category::class, 'parent_id', 'id'); //foreign key, primary key
   }
 
-  public function words()
+  public function terms()
   {
     return $this->belongsToMany(
-      Word::class,
-      'category_word',
+      Term::class,
+      'category_term',
       'category_id',
-      'word_id',
+      'term_id',
     );
   }
 

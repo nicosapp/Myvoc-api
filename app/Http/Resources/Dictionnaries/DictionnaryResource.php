@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Tags;
+namespace App\Http\Resources\Dictionnaries;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TagResource extends JsonResource
+class DictionnaryResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -16,9 +16,10 @@ class TagResource extends JsonResource
   {
     return [
       'id' => $this->id,
+      'slug' => $this->slug,
       'name' => $this->name,
-      'user_id' => $this->user_id,
-      'terms_count' => $this->terms()->count(),
+      'color' => $this->color,
+      'order' => $this->order
     ];
   }
 }

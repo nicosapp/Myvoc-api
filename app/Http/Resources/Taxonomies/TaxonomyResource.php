@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Tags;
+namespace App\Http\Resources\Taxonomies;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TagResource extends JsonResource
+class TaxonomyResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -16,7 +16,9 @@ class TagResource extends JsonResource
   {
     return [
       'id' => $this->id,
+      'taxonomy' => $this->taxonomy,
       'name' => $this->name,
+      'order' => $this->order,
       'user_id' => $this->user_id,
       'terms_count' => $this->terms()->count(),
     ];

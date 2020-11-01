@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryWordTable extends Migration
+class CreateCategoryTermTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,14 +13,14 @@ class CreateCategoryWordTable extends Migration
    */
   public function up()
   {
-    Schema::create('category_word', function (Blueprint $table) {
+    Schema::create('category_term', function (Blueprint $table) {
       $table->id();
       $table->bigInteger('category_id')->unsigned()->index();
-      $table->bigInteger('word_id')->unsigned()->index();
+      $table->bigInteger('term_id')->unsigned()->index();
       $table->timestamps();
 
       // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-      // $table->foreign('word_id')->references('id')->on('words')->onDelete('cascade');
+      // $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
     });
   }
 
@@ -31,6 +31,6 @@ class CreateCategoryWordTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('category_word');
+    Schema::dropIfExists('category_term');
   }
 }

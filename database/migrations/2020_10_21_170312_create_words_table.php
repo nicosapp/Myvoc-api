@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWordsTable extends Migration
+class CreateTermsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWordsTable extends Migration
    */
   public function up()
   {
-    Schema::create('words', function (Blueprint $table) {
+    Schema::create('terms', function (Blueprint $table) {
       $table->id();
       $table->bigInteger('user_id')->unsigned()->index();
       $table->bigInteger('old_id')->nullable();
@@ -55,6 +55,6 @@ class CreateWordsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('words');
+    Schema::dropIfExists('terms');
   }
 }

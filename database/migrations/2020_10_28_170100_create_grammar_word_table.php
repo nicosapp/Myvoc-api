@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrammarWordTable extends Migration
+class CreateGrammarTermTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,14 +13,14 @@ class CreateGrammarWordTable extends Migration
    */
   public function up()
   {
-    Schema::create('grammar_word', function (Blueprint $table) {
+    Schema::create('grammar_term', function (Blueprint $table) {
       $table->id();
       $table->bigInteger('grammar_id')->unsigned()->index();
-      $table->bigInteger('word_id')->unsigned()->index();
+      $table->bigInteger('term_id')->unsigned()->index();
       $table->timestamps();
 
       $table->foreign('grammar_id')->references('id')->on('grammars')->onDelete('cascade');
-      $table->foreign('word_id')->references('id')->on('words')->onDelete('cascade');
+      $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
     });
   }
 
@@ -31,6 +31,6 @@ class CreateGrammarWordTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('grammar_word');
+    Schema::dropIfExists('grammar_term');
   }
 }

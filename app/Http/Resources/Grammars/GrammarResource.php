@@ -18,7 +18,7 @@ class GrammarResource extends JsonResource
       'id' => $this->id,
       'name' => $this->name,
       'user_id' => $this->user_id,
-      'words_count' => 0,
+      'terms_count' => $this->terms()->count(),
     ];
   }
 }

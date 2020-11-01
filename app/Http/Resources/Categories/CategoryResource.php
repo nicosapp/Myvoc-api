@@ -20,7 +20,7 @@ class CategoryResource extends JsonResource
       'user_id' => $this->user_id,
       'order' => $this->order,
       'parent_id' => $this->parent_id,
-      'words_count' => 0,
+      'terms_count' => $this->terms()->count(),
       // 'children' => CategoryResourceBase::collection($this->whenLoaded('children'))
       'children' => CategoryResource::collection($this->children)
     ];
