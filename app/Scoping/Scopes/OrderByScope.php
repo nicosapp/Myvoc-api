@@ -12,6 +12,8 @@ class OrderByScope
     $orderby = $values[0];
     $seed = isset($values[1]) ? $values[1] : 12;
 
+    $builder->orderby('terms.forme', 'asc');
+
     switch ($orderby) {
       case 'alphabetical':
         $builder->orderby('terms.lang', 'asc');

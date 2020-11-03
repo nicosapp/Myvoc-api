@@ -4,7 +4,7 @@ namespace App\Http\Resources\Terms;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TermLightResource extends JsonResource
+class TermShortResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -26,10 +26,6 @@ class TermLightResource extends JsonResource
       'note' => $this->note,
       'imp' => $this->imp,
       'level' => $this->level,
-      'def' => $this->def,
-      'web_def' => $this->web_def,
-      'created_at' => $this->created_at,
-      'udpated_at' => $this->updated_at
     ];
   }
 }

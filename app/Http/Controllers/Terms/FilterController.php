@@ -15,14 +15,14 @@ use App\Scoping\Scopes\OrderByScope;
 use App\Scoping\Scopes\CategoryScope;
 use App\Scoping\Scopes\HighlightScope;
 use App\Scoping\Scopes\DictionnaryScope;
-use App\Http\Resources\Terms\TermLightResource;
+use App\Http\Resources\Terms\TermListItemResource;
 use App\Scoping\Scopes\TagScope;
 
 class FilterController extends Controller
 {
   public function __invoke(Request $request)
   {
-    return TermLightResource::collection(
+    return TermListItemResource::collection(
       Term::where('user_id', $request->user()->id)
         ->withScopes($this->scopes())
         ->paginate(Term::$pagination)

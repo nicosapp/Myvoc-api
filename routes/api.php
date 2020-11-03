@@ -93,28 +93,13 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'categories', 'namespa
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'taxonomies', 'namespace' => 'Taxonomies'], function () {
   Route::get('autocomplete', 'AutocompleteTaxonomyController');
+  Route::get('list', 'TaxonomyController@list');
 
   Route::get('', 'TaxonomyController@index');
   Route::post('', 'TaxonomyController@store');
   Route::get('{taxonomy}', 'TaxonomyController@show');
   Route::patch('{taxonomy}', 'TaxonomyController@update');
   Route::delete('{taxonomy}', 'TaxonomyController@destroy');
-});
-
-Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'grammars', 'namespace' => 'Grammars'], function () {
-  Route::get('', 'GrammarController@index');
-  Route::post('', 'GrammarController@store');
-  Route::get('{grammar}', 'GrammarController@show');
-  Route::patch('{grammar}', 'GrammarController@update');
-  Route::delete('{grammar}', 'GrammarController@destroy');
-});
-
-Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'tags', 'namespace' => 'Tags'], function () {
-  Route::get('', 'TagController@index');
-  Route::post('', 'TagController@store');
-  Route::get('{tag}', 'TagController@show');
-  Route::patch('{tag}', 'TagController@update');
-  Route::delete('{tag}', 'TagController@destroy');
 });
 
 Route::group(['prefix' => 'media', 'namespace' => 'Media'], function () {

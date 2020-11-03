@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Taxonomies;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Taxonomies\TaxonomyResource;
 use App\Models\Taxonomy;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Taxonomies\TaxonomyResource;
 
 class TaxonomyController extends Controller
 {
@@ -19,6 +20,14 @@ class TaxonomyController extends Controller
     );
   }
 
+  public function list(Request $request)
+  {
+    return response()->json([
+      'data' => $request->user()->taxonomies()->select('taxonomy as name')
+        ->groupBy('taxonomy')->get()
+    ]);
+  }
+
 
   public function show(Taxonomy $taxonomy)
   {
@@ -30,11 +39,18 @@ class TaxonomyController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
-      'name' => 'string|min:2',
+      'taxonomy' => 'string|required',
+      'name' => [
+        'string',
+        'min:2',
+        Rule::unique('taxonomies')->where(function ($query) use ($request) {
+          return $query->where('taxonomy', $request->get('taxonomy'))->where('user_id', $request->user()->id);
+        })
+      ],
       'order' => 'integer|nullable'
     ]);
 
-    $taxonomy = $request->user()->taxonomies()->create($request->only('name'));
+    $taxonomy = $request->user()->taxonomies()->create($request->only('name', 'taxonomy', 'order'));
     return new TaxonomyResource($taxonomy);
   }
 

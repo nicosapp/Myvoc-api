@@ -42,7 +42,7 @@ class Term extends Model
       'category_term',
       'term_id',
       'category_id'
-    );
+    )->withTimestamps();
   }
 
   public function grammars()
@@ -52,17 +52,17 @@ class Term extends Model
       'taxonomy_term',
       'term_id',
       'taxonomy_id'
-    )->where('taxonomy', 'grammar');
+    )->where('taxonomy', 'grammar')->withTimestamps();
   }
 
   public function tags()
   {
     return $this->belongsToMany(
       Taxonomy::class,
-      'tag_term',
+      'taxonomy_term',
       'term_id',
-      'tag_id'
-    )->where('taxonomy', 'tag');
+      'taxonomy_id'
+    )->where('taxonomy', 'tag')->withTimestamps();
   }
 
   public function translations()
@@ -72,7 +72,7 @@ class Term extends Model
       'translations',
       'native_id',
       'translation_id'
-    );
+    )->withTimestamps();
   }
 
   public function natives()
@@ -82,7 +82,46 @@ class Term extends Model
       'translations',
       'translation_id',
       'native_id'
-    );
+    )->withTimestamps();
+  }
+
+  public function examples()
+  {
+    return $this->belongsToMany(
+      Term::class,
+      'examples',
+      'term_id',
+      'example_id'
+    )->withTimestamps();
+  }
+
+  public function terms()
+  {
+    return $this->belongsToMany(
+      Term::class,
+      'examples',
+      'example_id',
+      'term_id'
+    )->withTimestamps();
+  }
+
+  public function synonyms()
+  {
+    return $this->belongsToMany(
+      Term::class,
+      'synonyms',
+      'first_id',
+      'second_id'
+    )->withTimestamps();
+  }
+  public function synonyms_reverse()
+  {
+    return $this->belongsToMany(
+      Term::class,
+      'synonyms',
+      'second_id',
+      'first_id'
+    )->withTimestamps();
   }
 }
   //Terms
@@ -104,3 +143,8 @@ class Term extends Model
 //grammars
 // Entrer manuellement toutes les grammaire puis
 // INSERT into grammar_term(term_id, grammar_id) SELECT b.id as term_id, a.id as grammar_id FROM terms b, grammars a where FIND_IN_SET(a.name, b.gram)>0
+
+//Exemple
+// INSERT into examples(term_id, example_id) select native_id, translation_id from translations where type='exemple'
+
+// INSERT into synonyms(first_id, second_id) select native_id, translation_id from translations where type='syn'

@@ -8,25 +8,25 @@ use App\Http\Controllers\Controller;
 
 class LinkExampleController extends Controller
 {
-  public function link(Term $term, Term $translation)
+  public function link(Term $term, Term $example)
   {
     //authorize
-    if ($translation->langue === 'fra') {
-      $term->natives()->syncWithoutDetaching([$translation->id]);
+    if ($term->termLength() === 'short') {
+      $term->examples()->syncWithoutDetaching([$example->id]);
     } else {
-      $term->translations()->syncWithoutDetaching([$translation->id]);
+      $term->terms()->syncWithoutDetaching([$example->id]);
     }
     $term->save();
   }
 
-  public function unlink(Term $term, Term $translation)
+  public function unlink(Term $term, Term $example)
   {
     // $this->authorize('update', $category);
 
-    if ($translation->langue === 'fra') {
-      $term->natives()->detach($translation);
+    if ($term->termLength() === 'short') {
+      $term->examples()->detach($example);
     } else {
-      $term->translations()->detach($translation);
+      $term->terms()->detach($example);
     }
     $term->save();
   }

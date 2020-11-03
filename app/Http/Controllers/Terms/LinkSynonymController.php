@@ -8,25 +8,23 @@ use App\Http\Controllers\Controller;
 
 class LinkSynonymController extends Controller
 {
-  public function link(Term $term, Term $translation)
+  public function link(Term $term, Term $synonym)
   {
     //authorize
-    if ($translation->langue === 'fra') {
-      $term->natives()->syncWithoutDetaching([$translation->id]);
-    } else {
-      $term->translations()->syncWithoutDetaching([$translation->id]);
+    if (!$term->synonyms_reverse()->where('terms.id', $synonym->id)->exists()) { //check if record exist in reverse
+      $term->synonyms()->syncWithoutDetaching([$synonym->id]);
     }
     $term->save();
   }
 
-  public function unlink(Term $term, Term $translation)
+  public function unlink(Term $term, Term $synonym)
   {
     // $this->authorize('update', $category);
 
-    if ($translation->langue === 'fra') {
-      $term->natives()->detach($translation);
+    if ($term->synonyms_reverse()->where('terms.id', $synonym->id)->exists()) {
+      $term->synonyms_reverse()->detach($synonym);
     } else {
-      $term->translations()->detach($translation);
+      $term->synonyms()->detach($synonym);
     }
     $term->save();
   }

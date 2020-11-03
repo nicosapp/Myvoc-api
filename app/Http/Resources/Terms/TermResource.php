@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Terms;
 
-use App\Http\Resources\Terms\TermLightResource;
+use App\Http\Resources\Terms\TermListItemResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Categories\CategoryLightResource;
 use App\Http\Resources\Grammars\GrammarResource;
@@ -39,16 +39,23 @@ class TermResource extends JsonResource
 
       'categories' => CategoryLightResource::collection($this->categories),
       'grammars' => TaxonomyResource::collection($this->grammars),
-      'synonyms' => [],
       'tags' => TaxonomyResource::collection($this->tags),
+
       'translations' => $this->isNative() ?
-        TermLightResource::collection($this->translations) : TermLightResource::collection($this->natives),
+        TermShortResource::collection($this->translations) : TermShortResource::collection($this->natives),
 
       $this->mergeWhen($this->termLength() === 'short', [
-        // 'examples' => TermLightResource::collection($this->examples)
+        'synonyms' => TermShortResource::collection($this->synonyms)->collection->merge(
+          TermShortResource::collection($this->synonyms_reverse)->collection
+        )->all()
+      ]),
+
+      //example
+      $this->mergeWhen($this->termLength() === 'short', [
+        'examples' => TermLongResource::collection($this->examples)
       ]),
       $this->mergeWhen($this->termLength() === 'long', [
-        // 'terms' => TermLightResource::collection($this->terms)
+        'terms' => TermShortResource::collection($this->terms)
       ])
 
     ];

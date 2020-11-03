@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Terms;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Terms\TermLightResource;
+use App\Http\Resources\Terms\TermListItemResource;
 use Illuminate\Http\Request;
 
 class AutocompleteTermController extends Controller
@@ -13,7 +13,7 @@ class AutocompleteTermController extends Controller
     if (!$search = $request->get('search', null)) {
       return null;
     }
-    return TermLightResource::collection(
+    return TermListItemResource::collection(
       $request->user()->terms()
         ->where([
           [$request->get('column', 'lang'), 'LIKE', "%{$search}%"],
