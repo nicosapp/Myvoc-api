@@ -17,6 +17,7 @@ class TermListItemResource extends JsonResource
     return [
       'id' => $this->id,
       'term' => $this->termLength(),
+      'cross_dico' => $this->cross_dico,
       'forme' => $this->forme,
       'langue' => $this->langue,
       'lang' => $this->lang,

@@ -25,6 +25,7 @@ class FilterController extends Controller
     return TermListItemResource::collection(
       Term::where('user_id', $request->user()->id)
         ->withScopes($this->scopes())
+        ->with(['user', 'user.infos', 'translations', 'tags', 'grammars', 'categories'])
         ->paginate(Term::$pagination)
     );
   }

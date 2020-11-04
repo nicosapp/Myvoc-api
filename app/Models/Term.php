@@ -147,4 +147,9 @@ class Term extends Model
 //Exemple
 // INSERT into examples(term_id, example_id) select native_id, translation_id from translations where type='exemple'
 
+//Synonym
 // INSERT into synonyms(first_id, second_id) select native_id, translation_id from translations where type='syn'
+
+//forme
+// update terms set forme = 'quote' where forme='note'
+// update terms set forme = 'example' where forme='exemple'
