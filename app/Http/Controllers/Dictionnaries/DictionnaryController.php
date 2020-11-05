@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Dictionnaries;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Dictionnaries\DictionnaryResource;
 use App\Models\Dictionnary;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Dictionnaries\DictionnaryResource;
 
 class DictionnaryController extends Controller
 {
@@ -26,7 +27,14 @@ class DictionnaryController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
-      'name' => 'required|string|min:3',
+      'name' => [
+        'required',
+        'string',
+        'min:3',
+        Rule::unique('dictionnaries')->where(function ($query) use ($request) {
+          return $query->where('user_id', $request->user()->id);
+        })
+      ],
       'color' => 'required|string',
       'order' => 'integer|nullable',
     ]);
@@ -40,7 +48,15 @@ class DictionnaryController extends Controller
     //authorize
 
     $this->validate($request, [
-      'name' => 'string|min:3',
+      'name' => [
+        'sometimes',
+        'required',
+        'string',
+        'min:3',
+        Rule::unique('dictionnaries')->where(function ($query) use ($request) {
+          return $query->where('user_id', $request->user()->id);
+        })
+      ],
       'color' => 'string',
       'order' => 'integer|nullable',
     ]);

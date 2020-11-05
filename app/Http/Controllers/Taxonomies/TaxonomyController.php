@@ -41,6 +41,7 @@ class TaxonomyController extends Controller
     $this->validate($request, [
       'taxonomy' => 'string|required',
       'name' => [
+        'required',
         'string',
         'min:2',
         Rule::unique('taxonomies')->where(function ($query) use ($request) {
@@ -59,7 +60,15 @@ class TaxonomyController extends Controller
     //authorize
 
     $this->validate($request, [
-      'name' => 'string|min:2',
+      'name' => [
+        'sometimes',
+        'required',
+        'string',
+        'min:2',
+        Rule::unique('taxonomies')->where(function ($query) use ($request) {
+          return $query->where('taxonomy', $request->get('taxonomy'))->where('user_id', $request->user()->id);
+        })
+      ],
       'order' => 'integer|nullable'
     ]);
 
