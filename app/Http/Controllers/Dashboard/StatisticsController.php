@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DictionnaryController extends Controller
+class StatisticsController extends Controller
 {
     //
 }

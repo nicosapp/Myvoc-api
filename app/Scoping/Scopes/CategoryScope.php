@@ -10,11 +10,9 @@ class CategoryScope
   {
     // return $builder->where('slug', $value);
     if (is_array($values = explode(',', $value))) {
-      foreach ($values as $v) {
-        $builder->whereHas('categories', function ($builder) use ($v) {
-          $builder->where('categories.id', $v);
-        });
-      }
+      $builder->whereHas('categories', function ($builder) use ($values) {
+        $builder->whereIn('categories.id', $values);
+      });
     }
     return $builder;
     // return $builder->whereHas('categories', function($builder) use ($value){

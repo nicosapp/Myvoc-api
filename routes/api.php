@@ -102,6 +102,13 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'taxonomies', 'namespa
   Route::delete('{taxonomy}', 'TaxonomyController@destroy');
 });
 
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'dashboard', 'namespace' => 'Dashboard'], function () {
+  // Route::get('statistics', 'DashboardController@statistics');
+  Route::get('lastUpdated', 'DashboardController@lastUpdated');
+  Route::get('lastCreated', 'DashboardController@lastCreated');
+  // Route::get('mostViewed', 'DashboardController@mostViewed');
+});
+
 Route::group(['prefix' => 'media', 'namespace' => 'Media'], function () {
   Route::get('config', 'MediaConfigController@index');
 });

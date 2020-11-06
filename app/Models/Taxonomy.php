@@ -12,6 +12,8 @@ class Taxonomy extends Model
 
   protected $fillable = ['taxonomy', 'name', 'order'];
 
+  public static $pagination = 30;
+
   public function user()
   {
     return $this->belongsTo(User::class);

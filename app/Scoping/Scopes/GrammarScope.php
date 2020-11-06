@@ -8,9 +8,11 @@ class GrammarScope
 {
   public function apply(Builder $builder, $value)
   {
-    if (is_array($values = explode(',', $value)))
-      $builder->whereIn('terms.gram', $values);
-
+    if (is_array($values = explode(',', $value))) {
+      $builder->whereHas('grammars', function ($builder) use ($values) {
+        $builder->whereIn('taxonomies.id', $values);
+      });
+    }
     return $builder;
   }
 }

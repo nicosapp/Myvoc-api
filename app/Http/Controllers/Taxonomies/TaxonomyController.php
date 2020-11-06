@@ -16,7 +16,7 @@ class TaxonomyController extends Controller
       $request->user()->taxonomies()
         ->where('taxonomy', $request->get('tax', 'grammar'))
         ->orderBy('order', 'asc')
-        ->get()
+        ->paginate(Taxonomy::$pagination)
     );
   }
 

@@ -7,6 +7,7 @@ use App\Models\Grammar;
 use App\Models\Category;
 use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Term extends Model
@@ -33,6 +34,11 @@ class Term extends Model
   public function isNative()
   {
     return $this->langue === $this->user->infos->native;
+  }
+
+  public function scopeDictionnary(Builder $builder, $dictionnary)
+  {
+    return $builder->where('langue', $dictionnary);
   }
 
   public function categories()

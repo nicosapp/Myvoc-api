@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Taxonomies;
 
+use App\Models\Taxonomy;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Taxonomies\TaxonomyResource;
-use Illuminate\Http\Request;
 
 class AutocompleteTaxonomyController extends Controller
 {
@@ -14,7 +15,7 @@ class AutocompleteTaxonomyController extends Controller
       return TaxonomyResource::collection(
         $request->user()->taxonomies()
           ->where('taxonomy', $request->get('tax', 'grammar'))
-          ->where('name', 'LIKE', "%{$search}%")->limit(25)->get()
+          ->where('name', 'LIKE', "%{$search}%")->limit(Taxonomy::$pagination)->get()
       );
     }
   }
